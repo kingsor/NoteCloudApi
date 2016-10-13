@@ -1,23 +1,22 @@
 {
   "userSecretsId": "aspnet-NoteCloud-c0659c48-c2d0-49ca-8303-d1966c3ff1ba",
-
+  "testRunner": "xunit",
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.1",
       "type": "platform"
     },
-    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Nancy": "2.0.0-barneyrubble",
+    "Nancy.Testing": "2.0.0-barneyrubble",
+    "Microsoft.AspNetCore.Owin": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
-    "Microsoft.AspNetCore.Mvc": "1.0.1",
-    "Microsoft.AspNetCore.Razor.Tools": {
-      "version": "1.0.0-preview2-final",
-      "type": "build"
-    },
-    "Microsoft.AspNetCore.Routing": "1.0.1",
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "xunit":"2.1.0",
+    "Moq": "4.6.36-*",
+    "Newtonsoft.Json": "9.0.1",
+    "dotnet-test-xunit": "1.0.0-rc2-build10015",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
     "Microsoft.EntityFrameworkCore.Sqlite": "1.0.1",
     "Microsoft.EntityFrameworkCore.Sqlite.Design": {
@@ -61,11 +60,17 @@
     }
   },
 
+  "dnxcore50": {
+    "dependencies": {
+      "moq.netcore": "4.4.0-beta8"
+    }
+  },
+
   "frameworks": {
-    "netcoreapp1.0": {
-      "imports": [
-        "dotnet5.6",
-        "portable-net45+win8"
+  "netcoreapp1.0": {
+    "imports": [
+      "dnxcore50",
+      "portable-net45+win8"
       ]
     }
   },
@@ -91,12 +96,14 @@
   },
 
   "scripts": {
-    "precompile": [ "dotnet bundle" ],
-    "prepublish": [ "bower install" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   },
 
   "tooling": {
     "defaultNamespace": "NoteCloud"
-  }
+  },
+
+  "commands": {
+        "test": "xunit.runner.dnx"
+    }
 }
