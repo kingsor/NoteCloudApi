@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace NoteCloud.DataAccess
 {
     public class NoteRepository : INoteRepository
@@ -7,6 +9,10 @@ namespace NoteCloud.DataAccess
         public NoteRepository(NoteCloudContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public virtual IEnumerable<Note> GetAllNotes() {
+            return this._dbContext.Notes;
         }
     }
 }
