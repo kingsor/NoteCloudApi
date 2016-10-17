@@ -16,14 +16,6 @@ namespace NoteCloud.Modules
             Get("/notes", _ => {
                 return this._unitOfWork.NoteRepository.GetAllNotes();
             });
-
-            /*Post("/users", args => {
-                User user = this.Bind<User>();
-                _unitOfWork.UserRepository.Create(user);
-                _unitOfWork.Save();
-
-                return HttpStatusCode.OK;
-            });*/
         }
     }
 }
