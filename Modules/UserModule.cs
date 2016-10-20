@@ -1,8 +1,6 @@
 using Nancy;
 using Nancy.ModelBinding;
 using NoteCloud.DataAccess;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace NoteCloud.Modules
 {

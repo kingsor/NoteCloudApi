@@ -14,5 +14,9 @@ namespace NoteCloud.DataAccess
         public virtual IEnumerable<Note> GetAllNotes() {
             return this._dbContext.Notes;
         }
+
+        public virtual void Create(Note note) {
+            this._dbContext.Add(note);
+        }
     }
 }

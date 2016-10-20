@@ -1,8 +1,6 @@
 using Nancy;
-using Nancy.ModelBinding;
 using NoteCloud.DataAccess;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+using Nancy.ModelBinding;
 
 namespace NoteCloud.Modules
 {
@@ -15,6 +13,14 @@ namespace NoteCloud.Modules
             
             Get("/notes", _ => {
                 return this._unitOfWork.NoteRepository.GetAllNotes();
+            });
+
+            Post("/notes", args => {
+                Note note = this.Bind<Note>();
+                _unitOfWork.NoteRepository.Create(note);
+                _unitOfWork.Save();
+
+                return HttpStatusCode.OK;
             });
         }
     }
