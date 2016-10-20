@@ -20,6 +20,7 @@ namespace NoteCloud
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddDbContext<NoteCloudContext>();
         }
 
         private class Bootstrapper : DefaultNancyBootstrapper {
