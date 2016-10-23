@@ -39,6 +39,7 @@ namespace NoteCloud.Middleware {
                         }
                     } catch (Exception ex) {
                         context.Response.StatusCode = 401; //UnAuthorized
+                        System.Console.WriteLine(ex.ToString());
                         await context.Response.WriteAsync("Invalid auth");
                         return;
                     }
@@ -47,6 +48,5 @@ namespace NoteCloud.Middleware {
 
             await _next.Invoke(context);
         }
- 
     }
 }

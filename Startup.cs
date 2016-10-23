@@ -38,6 +38,7 @@ namespace NoteCloud
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddDbContext<NoteCloudContext>();
             services.AddOptions();
             // Add our Config object so it can be injected

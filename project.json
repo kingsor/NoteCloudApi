@@ -93,6 +93,7 @@
       "wwwroot",
       "**/*.cshtml",
       "appsettings.json",
+      "secrets.json",
       "web.config"
     ]
   },
