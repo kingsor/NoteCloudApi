@@ -31,10 +31,8 @@ namespace NoteCloud.Test
 
             var resultObject = JsonConvert.DeserializeObject<List<User>>(result.Result.Body.AsString());
 
-            Assert.Equal(HttpStatusCode.OK, result.Result.StatusCode);
-            Assert.Equal(expected[0].Id, resultObject[0].Id);
-            Assert.Equal(expected[0].Email, resultObject[0].Email);
-            Assert.Equal(expected[0].PasswordHash, resultObject[0].PasswordHash);
+            //We want to disallow getting all users
+            Assert.Equal(HttpStatusCode.MethodNotAllowed, result.Result.StatusCode);
         }
     }
 }
