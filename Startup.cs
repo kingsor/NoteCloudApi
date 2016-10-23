@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Nancy;
 using Nancy.Owin;
 using Nancy.Configuration;
-using Nancy.Diagnostics;
+using NoteCloud.Middleware;
 using NoteCloud.DataAccess;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,6 +12,8 @@ namespace NoteCloud
     {
         public void Configure(IApplicationBuilder app)
         {
+            app.UseMiddleware<AuthorizeMiddleware>();
+            
             var nancyOptions = new NancyOptions();
             nancyOptions.Bootstrapper = new Bootstrapper();
             app.UseOwin(x => x.UseNancy(nancyOptions));

@@ -4,7 +4,6 @@ using Xunit;
 using Moq;
 using NoteCloud.DataAccess;
 using NoteCloud.Modules;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace NoteCloud.Test

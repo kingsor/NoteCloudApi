@@ -1,11 +1,5 @@
-using Nancy;
-using Nancy.Testing;
 using Xunit;
-using Moq;
-using NoteCloud.DataAccess;
-using NoteCloud.Modules;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using NoteCloud.Helpers;
 
 namespace NoteCloud.Test {
