@@ -6,5 +6,6 @@ namespace NoteCloud.DataAccess
     {
         IEnumerable<User> GetAllUsers();
         void Create(User user);
+        User GetUser(string email);
     }
 }

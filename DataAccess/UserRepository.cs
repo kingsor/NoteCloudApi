@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NoteCloud.DataAccess
 {
@@ -17,9 +18,12 @@ namespace NoteCloud.DataAccess
             return _dbContext.Users;
         }
 
-        public virtual void Create(User user)
-        {
-            _dbContext.Add(user);
+        public virtual User GetUser(string email) {
+            return _dbContext.Users.FirstOrDefault(x => x.Email == email);
+        }
+
+        public virtual void Create(User user) {
+            _dbContext.Users.Add(user);
         }
     }
 }

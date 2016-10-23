@@ -6,5 +6,8 @@ namespace NoteCloud.DataAccess
     {
         IEnumerable<Note> GetAllNotes();
         void Create(Note note);
+        Note GetNote(int id);
+        void Update(Note note);
+        void Delete(int id);
     }
 }

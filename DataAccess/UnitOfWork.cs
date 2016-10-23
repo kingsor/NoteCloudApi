@@ -7,6 +7,7 @@ namespace NoteCloud.DataAccess
         private INoteRepository _noteRepository;
         private INoteGroupRepository _noteGroupRepository;
         private IUserRepository _userRepository;
+        private IFollowerRepository _followerRepository;
         private NoteCloudContext _context;
         private bool disposed = false;
 
@@ -14,6 +15,16 @@ namespace NoteCloud.DataAccess
         public UnitOfWork(NoteCloudContext context)
         {
             _context = context;
+        }
+
+        public virtual IFollowerRepository FollowerRepository {
+            get {
+                if(_followerRepository == null) {
+                    _followerRepository = new FollowerRepository(_context);
+                }
+
+                return _followerRepository;
+            }
         }
 
         public virtual INoteRepository NoteRepository
