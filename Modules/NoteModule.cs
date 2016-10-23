@@ -17,8 +17,6 @@ namespace NoteCloud.Modules
 
             Post("/notes", args => {
                 Note note = this.Bind<Note>();
-
-                System.Console.WriteLine(_unitOfWork != null);
                 _unitOfWork.NoteRepository.Create(note);
                 _unitOfWork.Save();
 
