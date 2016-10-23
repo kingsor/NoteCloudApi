@@ -4,15 +4,18 @@ using NoteCloud.DataAccess;
 using NoteCloud.Helpers;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Options;
 
 namespace NoteCloud.Modules
 {
     public class UserModule : NancyModule
     {
         private UnitOfWork _unitOfWork;
-        public UserModule(UnitOfWork unitOfWork)
+        private Secrets _secrets;
+        public UserModule(UnitOfWork unitOfWork, IOptions<Secrets> secrets)
         {
             _unitOfWork = unitOfWork;
+            _secrets = secrets.Value;
             
             Post("/users", args => {
                 User user = this.Bind();
@@ -38,7 +41,7 @@ namespace NoteCloud.Modules
                     claims.Add("email", user.Email);
                     claims.Add("userId", fromDb.Id);
 
-                    return JWT.Create(claims);
+                    return JWT.Create(_secrets, claims);
                 } else {
                     return HttpStatusCode.Unauthorized;
                 }

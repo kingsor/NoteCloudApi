@@ -8,11 +8,11 @@ namespace NoteCloud.Helpers {
     public class JWT {
         private JWT() { /* SEALED CONSTRUCTOR */ }
         
-        public static string Create(Dictionary<string, object> claims) {
+        public static string Create(Secrets secrets, Dictionary<string, object> claims) {
             //JsonConvert.Serialize
             string claimsString = JsonConvert.SerializeObject(claims);
             string algorithmInfo = "{\"alg\": \"HS256\",\"typ\": \"JWT\"}";
-            string secret = "Notes For Derrick";
+            string secret = secrets.SecretKey;
             string result = "";
 
             result += Base64Encode(algorithmInfo) + "." + Base64Encode(claimsString);
@@ -25,13 +25,13 @@ namespace NoteCloud.Helpers {
             return result;
         }
 
-        public static bool Verify(string jwt) {
+        public static bool Verify(Secrets secrets, string jwt) {
             string[] items = jwt.Split('.');
             string receivedHeaderAndPayload = items[0] + "." + items[1];
             string actual = items[2];
 
             string expected = "";
-            string secret = "Notes For Derrick";
+            string secret = secrets.SecretKey;
             var secretBytes = Encoding.UTF8.GetBytes(secret);
             using(var hasher = new HMACSHA256(secretBytes)) {
                 byte[] raw = hasher.ComputeHash(Encoding.UTF8.GetBytes(receivedHeaderAndPayload));

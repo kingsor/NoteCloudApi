@@ -2,14 +2,17 @@ using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using NoteCloud.Helpers;
 using System;
+using Microsoft.Extensions.Options;
 
 namespace NoteCloud.Middleware {
     public class AuthorizeMiddleware
     {
         private readonly RequestDelegate _next;
+        private Secrets _secrets;
  
-        public AuthorizeMiddleware(RequestDelegate next)
+        public AuthorizeMiddleware(IOptions<Secrets> secrets, RequestDelegate next)
         {
+            _secrets = secrets.Value;
             _next = next;
         }
  
@@ -28,7 +31,7 @@ namespace NoteCloud.Middleware {
                 else
                 {
                     try {
-                        if(!JWT.Verify(context.Request.Headers["Authorize"]))
+                        if(!JWT.Verify(_secrets, context.Request.Headers["Authorize"]))
                         {
                             context.Response.StatusCode = 401; //UnAuthorized
                             await context.Response.WriteAsync("Invalid auth");
