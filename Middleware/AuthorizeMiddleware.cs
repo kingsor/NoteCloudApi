@@ -18,14 +18,16 @@ namespace NoteCloud.Middleware {
  
         public async Task Invoke(HttpContext context)
         {
-            bool isNotLogin = !context.Request.Path.ToString().Equals("/users/login");
-            bool isNotCreateUser = !context.Request.Path.ToString().Equals("/users");
-            bool isNotRoot = !context.Request.Path.ToString().Equals("/");
-            if(isNotRoot || isNotLogin || isNotCreateUser) {
+            bool isLogin = context.Request.Path.ToString().Equals("/users/login");
+            bool isLoginSlash = context.Request.Path.ToString().Equals("/users/login/");
+            bool isCreateUser = context.Request.Path.ToString().Equals("/users");
+            bool isCreateUserSlash = context.Request.Path.ToString().Equals("/users/");
+            bool isRoot = context.Request.Path.ToString().Equals("/");
+            if(!(isRoot || isLogin || isLoginSlash || isCreateUser || isCreateUserSlash)) {
                 if (!context.Request.Headers.Keys.Contains("Authorize"))
                 {
                     context.Response.StatusCode = 400; //Bad Request                
-                    await context.Response.WriteAsync("Authorize attribute is missing");
+                    await context.Response.WriteAsync("Authorize attribute is missing " + context.Request.Path.ToString());
                     return;
                 }
                 else
