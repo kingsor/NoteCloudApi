@@ -16,6 +16,12 @@ namespace NoteCloud.DataAccess
             return _dbContext.Notes;
         }
 
+        public virtual IEnumerable<Note> GetUserNotes(int userId) {
+            List<NoteGroup> userNoteGroups = _dbContext.NoteGroups.Where(x => x.UserId == userId).ToList();
+            IEnumerable<Note> userNotes = _dbContext.Notes.Where(x => userNoteGroups.Any(y => y.Id == x.NoteGroupId));
+            return userNotes;
+        }
+
         public virtual void Create(Note note) {
             _dbContext.Add(note);
         }

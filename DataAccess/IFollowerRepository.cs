@@ -6,5 +6,7 @@ namespace NoteCloud.DataAccess
     {
         IEnumerable<Follower> GetAllFollowers(int userId);
         void Create(Follower follower);
+        void Delete(int userId, int followerId);
+        bool IsFollower(int followerId, int userId);
     }
 }

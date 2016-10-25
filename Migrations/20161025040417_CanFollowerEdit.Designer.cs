@@ -8,9 +8,10 @@ using NoteCloud.DataAccess;
 namespace NoteCloudApi.Migrations
 {
     [DbContext(typeof(NoteCloudContext))]
-    partial class NoteCloudContextModelSnapshot : ModelSnapshot
+    [Migration("20161025040417_CanFollowerEdit")]
+    partial class CanFollowerEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1");
