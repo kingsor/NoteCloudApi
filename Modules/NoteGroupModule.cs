@@ -54,7 +54,7 @@ namespace NoteCloud.Modules
                 NoteGroup toDelete = _unitOfWork.NoteGroupRepository.GetNoteGroup(args.notegroupId);
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
 
-                bool canFollowerEdit = (toDelete.CanFollowerEdit && _unitOfWork.FollowerRepository.IsFollower(_currentUser.UserId, toEdit.UserId));
+                bool canFollowerEdit = (toDelete.CanFollowerEdit && _unitOfWork.FollowerRepository.IsFollower(_currentUser.UserId, toDelete.UserId));
                 if(toDelete.UserId == _currentUser.UserId || (canFollowerEdit)) {
                     _unitOfWork.NoteGroupRepository.Delete(toDelete.Id);
                     _unitOfWork.Save();
