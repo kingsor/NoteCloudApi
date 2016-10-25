@@ -3,6 +3,7 @@ using Nancy.ModelBinding;
 using NoteCloud.DataAccess;
 using NoteCloud.Helpers;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 
@@ -17,28 +18,33 @@ namespace NoteCloud.Modules
             _unitOfWork = unitOfWork;
             _secrets = secrets.Value;
             
+            Get("/users", _ => {
+                return _unitOfWork.UserRepository.GetAllUsers().Select(x => new DTO.User() { Email = x.Email, UserId = x.Id });
+            });
+
             Post("/users", args => {
-                User user = this.Bind();
-
+                DTO.LoginCredentials user = this.Bind();
+                User userToAdd = new User();
                 //Do hashing here
-                string password = user.PasswordHash;
+                string password = user.Password;
                 Tuple<string, string> result = PasswordHash.hash(password);
-                user.PasswordHash = result.Item1;
-                user.Salt = result.Item2;
+                userToAdd.PasswordHash = result.Item1;
+                userToAdd.Salt = result.Item2;
+                userToAdd.Email = user.Email;
 
-                _unitOfWork.UserRepository.Create(user);
+                _unitOfWork.UserRepository.Create(userToAdd);
                 _unitOfWork.Save();
 
                 return HttpStatusCode.OK;
             });
 
             Post("/users/login", args => {
-                User user = this.Bind<User>();
+                DTO.LoginCredentials user = this.Bind<DTO.LoginCredentials>();
                 
                 User fromDb = _unitOfWork.UserRepository.GetUser(user.Email);
-                if(fromDb != null && PasswordHash.verify(user.PasswordHash, fromDb.PasswordHash, fromDb.Salt)) {
+                if(fromDb != null && PasswordHash.verify(user.Password, fromDb.PasswordHash, fromDb.Salt)) {
                     Dictionary<string, object> claims = new Dictionary<string, object>();
-                    claims.Add("email", user.Email);
+                    claims.Add("email", fromDb.Email);
                     claims.Add("userId", fromDb.Id);
 
                     return JWT.Create(_secrets, claims);
