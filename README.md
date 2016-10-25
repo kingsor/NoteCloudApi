@@ -1,34 +1,24 @@
-# Welcome to ASP.NET Core
+# Welcome to the NoteCloud API
 
-We've made some big updates in this release, so it’s **important** that you spend a few minutes to learn what’s new.
+This project is made to create a RESTful API for any applications I would like to make in the future;
+All API Definitions are available via my website http://www.itderrickh.com
 
-You've created a new ASP.NET Core project. [Learn what's new](https://go.microsoft.com/fwlink/?LinkId=518016)
+## API Definitions
 
-## This application consists of:
+*   [POST] /users - Register a users
+*   [POST] /users/login - Login a user
+*   [GET] /notes/user/{userId} - Get notes for a user
+*   [POST] /notes - Add a note
+*   [PUT] /notes/{noteId} - Update a note
+*   [DELETE] /notes/{noteId} - Delete a note
+*   [GET] /notegroups/user/{userId} - Get user notegroups
+*   [POST] /notegroups - Create a notegroup
+*   [PUT] /notegroups/{notegroupId} - Update a notegroup
+*   [DELETE] /notegroups/{notegroupId} - Delete a notegroup
+*   [GET] /followers/{userId} - Get a users followers
+*   [POST] /followers/{userId} - Follow a user
+*   [DELETE] /followers/{userId} - Unfollow a user
 
-*   Sample pages using ASP.NET Core MVC
-*   [Bower](https://go.microsoft.com/fwlink/?LinkId=518004) for managing client-side libraries
-*   Theming using [Bootstrap](https://go.microsoft.com/fwlink/?LinkID=398939)
-
-## How to
-
-*   [Add a Controller and View](https://go.microsoft.com/fwlink/?LinkID=398600)
-*   [Add an appsetting in config and access it in app.](https://go.microsoft.com/fwlink/?LinkID=699562)
-*   [Manage User Secrets using Secret Manager.](https://go.microsoft.com/fwlink/?LinkId=699315)
-*   [Use logging to log a message.](https://go.microsoft.com/fwlink/?LinkId=699316)
-*   [Add packages using NuGet.](https://go.microsoft.com/fwlink/?LinkId=699317)
-*   [Add client packages using Bower.](https://go.microsoft.com/fwlink/?LinkId=699318)
-*   [Target development, staging or production environment.](https://go.microsoft.com/fwlink/?LinkId=699319)
-
-## Overview
-
-*   [Conceptual overview of what is ASP.NET Core](https://go.microsoft.com/fwlink/?LinkId=518008)
-*   [Fundamentals of ASP.NET Core such as Startup and middleware.](https://go.microsoft.com/fwlink/?LinkId=699320)
-*   [Working with Data](https://go.microsoft.com/fwlink/?LinkId=398602)
-*   [Security](https://go.microsoft.com/fwlink/?LinkId=398603)
-*   [Client side development](https://go.microsoft.com/fwlink/?LinkID=699321)
-*   [Develop on different platforms](https://go.microsoft.com/fwlink/?LinkID=699322)
-*   [Read more on the documentation site](https://go.microsoft.com/fwlink/?LinkID=699323)
 
 ## Run & Deploy
 
