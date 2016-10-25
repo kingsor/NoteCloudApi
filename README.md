@@ -5,6 +5,7 @@ All API Definitions are available via my website http://www.itderrickh.com
 
 ## API Definitions
 
+*   [GET] /users - Gets all users
 *   [POST] /users - Register a users
 *   [POST] /users/login - Login a user
 *   [GET] /notes/user/{userId} - Get notes for a user
