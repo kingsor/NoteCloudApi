@@ -10,6 +10,7 @@ namespace NoteCloud
             var host = new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
  
