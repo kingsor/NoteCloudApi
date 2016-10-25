@@ -24,18 +24,23 @@ namespace NoteCloud.Modules
 
             Post("/users", args => {
                 DTO.LoginCredentials user = this.Bind();
-                User userToAdd = new User();
-                //Do hashing here
-                string password = user.Password;
-                Tuple<string, string> result = PasswordHash.hash(password);
-                userToAdd.PasswordHash = result.Item1;
-                userToAdd.Salt = result.Item2;
-                userToAdd.Email = user.Email;
 
-                _unitOfWork.UserRepository.Create(userToAdd);
-                _unitOfWork.Save();
+                if(_unitOfWork.UserRepository.GetUser(user.Email) == null) {
+                    User userToAdd = new User();
+                    //Do hashing here
+                    string password = user.Password;
+                    Tuple<string, string> result = PasswordHash.hash(password);
+                    userToAdd.PasswordHash = result.Item1;
+                    userToAdd.Salt = result.Item2;
+                    userToAdd.Email = user.Email;
 
-                return HttpStatusCode.OK;
+                    _unitOfWork.UserRepository.Create(userToAdd);
+                    _unitOfWork.Save();
+
+                    return HttpStatusCode.OK;
+                } else {
+                    return HttpStatusCode.Unauthorized;
+                }
             });
 
             Post("/users/login", args => {
