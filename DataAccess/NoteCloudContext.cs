@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System;
 
 namespace NoteCloud.DataAccess
 {
@@ -44,6 +45,7 @@ namespace NoteCloud.DataAccess
         public int Priority { get; set; }
         public bool IsComplete { get; set; }
         public bool IsPrivate { get; set; }
+        public DateTime DueDate { get; set; }
 
         public int NoteGroupId { get; set; }
         public NoteGroup NoteGroup { get; set; }
