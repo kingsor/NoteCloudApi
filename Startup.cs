@@ -28,6 +28,8 @@ namespace NoteCloud
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMiddleware<AuthorizeMiddleware>();
 
             var nancyOptions = new NancyOptions();
