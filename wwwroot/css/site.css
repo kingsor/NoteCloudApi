@@ -1,0 +1,24 @@
+body {
+	padding: 50px;
+	font: 13px Helvetica, Arial, sans-serif;
+}
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
+}
+
+.ng-pristine {
+	border-color: #ccc !important
+}
+
+.ng-invalid {
+	border-color: red;
+}
+
+.ng-valid {
+	border-color: green;
+}

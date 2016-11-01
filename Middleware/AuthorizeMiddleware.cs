@@ -22,8 +22,7 @@ namespace NoteCloud.Middleware {
             bool isLoginSlash = context.Request.Path.ToString().Equals("/users/login/");
             bool isCreateUser = context.Request.Path.ToString().Equals("/users");
             bool isCreateUserSlash = context.Request.Path.ToString().Equals("/users/");
-            bool isRoot = context.Request.Path.ToString().Equals("/");
-            if(!(isRoot || isLogin || isLoginSlash || isCreateUser || isCreateUserSlash)) {
+            if(!(isLogin || isLoginSlash || isCreateUser || isCreateUserSlash)) {
                 if (!context.Request.Headers.Keys.Contains("Authorize"))
                 {
                     context.Response.StatusCode = 400; //Bad Request                
