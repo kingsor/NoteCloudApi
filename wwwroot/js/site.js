@@ -5,14 +5,16 @@ app.service('APIInterceptor', ['$rootScope', 'AuthenticationToken', '$location',
     service.request = function(config) {
         var access_token = AuthenticationToken.getToken();
         if (access_token != null && access_token != "") {
-            config.headers.Authorize = access_token;
+            //config.headers.Authorize = access_token;
+        } else {
+            $location.path('/');
         }
 
         return config;
     };
     service.responseError = function(response) {
         if (response.status === 401) {
-            $rootScope.$broadcast('unauthorized');
+            $location.path('/');
         }
         return response;
     };
@@ -32,6 +34,7 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
     });
 
     $httpProvider.interceptors.push('APIInterceptor');
+    $httpProvider.defaults.useXDomain = true;
 }]);
 
 app.factory('AuthenticationToken', ['$window', function($window) {
@@ -43,7 +46,11 @@ app.factory('AuthenticationToken', ['$window', function($window) {
             $window.localStorage['authToken'] = token;
         },
         destroyToken: function() {
-            $window.localStorage['authToken'] = null;
+            $window.localStorage.clear();
+        },
+        getCurrentUser: function() {
+            var split = $window.localStorage['authToken'].split(".");
+            return JSON.parse(atob(split[1]));
         }
     };
 }]);

@@ -2,7 +2,11 @@ app.service('LoginService', ['$http', 'AuthenticationToken', function($http, Aut
     var LOGIN_URL = "http://www.itderrickh.com/users/login/"
     return {
         login: function(credentials, callback) {
-            $http.post(LOGIN_URL, credentials).then(function(result) {
+            $http({
+                url: LOGIN_URL,
+                method: 'POST',
+                data: credentials
+            }).then(function(result) {
                 AuthenticationToken.setToken(result.data);
                 callback();
             }, function(result) {
