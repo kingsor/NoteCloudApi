@@ -1,0 +1,19 @@
+<div class="page-header">
+    <h1>NoteCloud Login</h1>
+</div>
+
+<form novalidate name="loginForm" class="form-group">                                                                                                                                                                                           
+    <p>                                                                                                                                                                                                                                                                
+        <label>Email:</label>
+        <input type="email" class="form-control" ng-model="loginCtrl.email" name="email" required>
+        <span class="error" ng-show="loginForm.email.$touched && loginForm.email.$invalid">The email is required.</span>
+    </p>                                                                                                                                                                                                                                                              
+    <p>
+        <label>Password:</label>
+        <input type="password" class="form-control" ng-model="loginCtrl.password" name="password" required>
+        <span class="error" ng-show="loginForm.password.$touched && loginForm.password.$invalid">The password is required.</span>
+    </p>                                                                                                                                   
+    <p class="pull-right">                                                                                                                                    
+        <input type="button" class="btn btn-default" value="Submit" ng-click="loginCtrl.submit()"> 
+    </p>
+</form>

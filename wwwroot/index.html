@@ -16,27 +16,7 @@
 
 <body ng-app="noteCloud">
     <div class="col-sm-4"></div>
-    <div class="container col-sm-4 panel panel-default" ng-controller="LoginController as loginCtrl">
-        <div class="page-header">
-            <h1>NoteCloud Login</h1>
-        </div>
-
-        <form novalidate name="loginForm" class="form-group">                                                                                                                                                                                           
-            <p>                                                                                                                                                                                                                                                                
-                <label>Email:</label>
-                <input type="email" class="form-control" ng-model="loginCtrl.email" name="email" required>
-                <span class="error" ng-show="loginForm.email.$touched && loginForm.email.$invalid">The email is required.</span>
-            </p>                                                                                                                                                                                                                                                              
-            <p>
-                <label>Password:</label>
-                <input type="password" class="form-control" ng-model="loginCtrl.password" name="password" required>
-                <span class="error" ng-show="loginForm.password.$touched && loginForm.password.$invalid">The password is required.</span>
-            </p>                                                                                                                                   
-            <p class="pull-right">                                                                                                                                    
-                <input type="button" class="btn btn-default" value="Submit" ng-click="loginCtrl.submit()"> 
-            </p>
-            {{ loginForm.$valid }}
-        </form>
+    <div class="container col-sm-4 panel panel-default" ng-view>
     </div>
     <div class="col-sm-4"></div>
 
@@ -46,5 +26,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="js/site.js"></script>
     <script src="js/loginModule.js"></script>
+    <script src="js/mainModule.js"></script>
 </body>
 </html>
