@@ -11,6 +11,31 @@ namespace NoteCloud.Test
 {
     public class TestNoteModule
     {
+        private Mock<NoteCloudContext> context;
+        private Mock<UnitOfWork> mockUOW;
+        private Mock<NoteRepository> mockNoteRepo;
+        private Mock<NoteGroupRepository> mockNoteGroupRepo;
+        private Mock<FollowerRepository> mockFollowerRepo;
+        private Mock<CurrentUser> mockCurrentUser;
+        private NoteModule noteModule;
+        private Browser browser;
+
+        public TestNoteModule() {
+            context = new Mock<NoteCloudContext>();
+            mockUOW = new Mock<UnitOfWork>(context.Object);
+            mockNoteRepo = new Mock<NoteRepository>();
+            mockNoteGroupRepo = new Mock<NoteGroupRepository>();
+            mockFollowerRepo = new Mock<FollowerRepository>();
+            mockCurrentUser = new Mock<CurrentUser>();
+
+            mockUOW.SetupGet(x => x.NoteRepository).Returns(mockNoteRepo.Object);
+            mockUOW.SetupGet(x => x.NoteGroupRepository).Returns(mockNoteGroupRepo.Object);
+            mockUOW.SetupGet(x => x.FollowerRepository).Returns(mockFollowerRepo.Object);
+
+            noteModule = new NoteModule(mockUOW.Object, mockCurrentUser.Object);
+            browser = new Browser(with => with.Module(noteModule));
+        }
+
         [Fact]
         public void CreateNote()
         {
@@ -18,6 +43,7 @@ namespace NoteCloud.Test
                 Id = 1,
                 UserId = 1,
                 Title = "Test Group",
+                CanFollowerEdit = true
             };
             Note newNote = new Note() {
                 Id = 0,
@@ -30,22 +56,15 @@ namespace NoteCloud.Test
 
             CurrentUser currUser = new CurrentUser() { Email = "heined50@uwosh.edu", UserId = 1 };
 
-            Mock<NoteCloudContext> context = new Mock<NoteCloudContext>();
-            Mock<UnitOfWork> mockUOW = new Mock<UnitOfWork>(context.Object);
-            Mock<NoteRepository> mockNoteRepo = new Mock<NoteRepository>();
-            Mock<CurrentUser> mockCurrentUser = new Mock<CurrentUser>();
-
             mockCurrentUser.Setup(x => x.GetFromAuthToken(It.IsAny<IUserRepository>(), It.IsAny<string>())).Returns(currUser);
             mockNoteRepo.Setup(x => x.Create(It.IsAny<Note>())).Verifiable();
-            mockUOW.SetupGet(x => x.NoteRepository).Returns(mockNoteRepo.Object);
-
-
-            NoteModule noteModule = new NoteModule(mockUOW.Object, mockCurrentUser.Object);
-            var browser = new Browser(with => with.Module(noteModule));
+            mockNoteGroupRepo.Setup(x => x.GetNoteGroup(It.IsAny<int>())).Returns(group);
+            mockFollowerRepo.Setup(x => x.IsFollower(It.IsAny<int>(), It.IsAny<int>())).Returns(true);
 
             var result = browser.Post("/notes", with => {
                 with.HttpRequest();
                 with.Header("Accept", "application/json");
+                with.Header("Content-Type", "application/json");
                 with.Body(JsonConvert.SerializeObject(newNote));
             });
 

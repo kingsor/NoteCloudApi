@@ -13,30 +13,46 @@ namespace NoteCloud.Test
 {
     public class TestUserModule
     {
+        private Mock<UnitOfWork> mockUOW;
+        private Mock<UserRepository> mockUserRepo;
+        private Mock<IOptions<Secrets>> mockOptions;
+        private UserModule userModule;
+        private Browser browser;
+
+        public TestUserModule() {
+            mockUOW = new Mock<UnitOfWork>();
+            mockUserRepo = new Mock<UserRepository>();
+            mockOptions = new Mock<IOptions<Secrets>>();
+
+            mockOptions.Setup(x => x.Value).Returns(new Secrets() { SecretKey = "Hello World" });
+            mockUOW.SetupGet(x => x.UserRepository).Returns(mockUserRepo.Object);
+            userModule = new UserModule(mockUOW.Object, mockOptions.Object);
+            browser = new Browser(with => with.Module(userModule));
+        }
+
         [Fact]
         public void RootRouteResult()
         {
             List<User> expected = new List<User>();
             expected.Add(new User() { Id = 1, Email = "heined50@uwosh.edu", PasswordHash = "heined50"});
-            Mock<UnitOfWork> mockUOW = new Mock<UnitOfWork>();
-            Mock<UserRepository> mockUserRepo = new Mock<UserRepository>();
-            Mock<IOptions<Secrets>> mockOptions = new Mock<IOptions<Secrets>>();
+            expected.Add(new User() { Id = 2, Email = "kaufmk43@uwosh.edu", PasswordHash = "kaufmk43"});
 
-            mockOptions.Setup(x => x.Value).Returns(new Secrets() { SecretKey = "Hello World" });
             mockUserRepo.Setup(x => x.GetAllUsers()).Returns(expected);
-            mockUOW.SetupGet(x => x.UserRepository).Returns(mockUserRepo.Object);
-            UserModule userModule = new UserModule(mockUOW.Object, mockOptions.Object);
-            var browser = new Browser(with => with.Module(userModule));
 
             var result = browser.Get("/users", with => {
                 with.HttpRequest();
                 with.Header("Accept", "application/json");
             });
 
-            var resultObject = JsonConvert.DeserializeObject<List<User>>(result.Result.Body.AsString());
+            var resultObject = JsonConvert.DeserializeObject<List<DTO.User>>(result.Result.Body.AsString());
 
             //We want to disallow getting all users
-            Assert.Equal(HttpStatusCode.MethodNotAllowed, result.Result.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, result.Result.StatusCode);
+            Assert.Equal("heined50@uwosh.edu", resultObject[0].Email);
+            Assert.Equal(1, resultObject[0].UserId);
+
+            Assert.Equal("kaufmk43@uwosh.edu", resultObject[1].Email);
+            Assert.Equal(2, resultObject[1].UserId);
         }
     }
 }

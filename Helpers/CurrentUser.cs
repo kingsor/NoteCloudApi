@@ -7,7 +7,7 @@ namespace NoteCloud.Helpers {
         public string Email { get; set; }
         public int UserId { get; set; }
 
-        public CurrentUser GetFromAuthToken(IUserRepository userRepo, string token) {
+        public virtual CurrentUser GetFromAuthToken(IUserRepository userRepo, string token) {
             string[] items = token.Split('.');
             string claimsDecoded = JWT.Base64Decode(items[1]);
 
