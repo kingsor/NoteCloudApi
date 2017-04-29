@@ -11,9 +11,9 @@ namespace NoteCloud.Modules
 {
     public class UserModule : NancyModule
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private Secrets _secrets;
-        public UserModule(UnitOfWork unitOfWork, IOptions<Secrets> secrets)
+        public UserModule(IUnitOfWork unitOfWork, IOptions<Secrets> secrets)
         {
             _unitOfWork = unitOfWork;
             _secrets = secrets.Value;

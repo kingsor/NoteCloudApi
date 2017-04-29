@@ -12,29 +12,29 @@ namespace NoteCloud.DataAccess
             _dbContext = dbContext;
         }
 
-        public virtual IEnumerable<Note> GetAllNotes() {
+        public IEnumerable<Note> GetAllNotes() {
             return _dbContext.Notes;
         }
 
-        public virtual IEnumerable<Note> GetUserNotes(int userId) {
+        public IEnumerable<Note> GetUserNotes(int userId) {
             List<NoteGroup> userNoteGroups = _dbContext.NoteGroups.Where(x => x.UserId == userId).ToList();
             IEnumerable<Note> userNotes = _dbContext.Notes.Where(x => userNoteGroups.Any(y => y.Id == x.NoteGroupId));
             return userNotes;
         }
 
-        public virtual void Create(Note note) {
+        public void Create(Note note) {
             _dbContext.Add(note);
         }
 
-        public virtual Note GetNote(int id) {
+        public Note GetNote(int id) {
             return _dbContext.Notes.FirstOrDefault(x => x.Id == id);
         }
 
-        public virtual void Update(Note note) {
+        public void Update(Note note) {
             _dbContext.Update(note);
         }
 
-        public virtual void Delete(int id) {
+        public void Delete(int id) {
             Note item = GetNote(id);
             _dbContext.Remove(item);
         }

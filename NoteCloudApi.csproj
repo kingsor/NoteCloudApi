@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <DebugType>portable</DebugType>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>NoteCloudApi</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>NoteCloudApi</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <UserSecretsId>aspnet-NoteCloud-c0659c48-c2d0-49ca-8303-d1966c3ff1ba</UserSecretsId>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50;portable-net45+win8</PackageTargetFallback>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="wwwroot;**\*.cshtml;appsettings.json;secrets.json;web.config">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170106-08" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0-beta5-build1225" />
+    <PackageReference Include="Nancy" Version="2.0.0-barneyrubble" />
+    <PackageReference Include="Nancy.Testing" Version="2.0.0-barneyrubble" />
+    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.0.2" />
+    <PackageReference Include="xunit" Version="2.2.0-beta5-build3474" />
+    <PackageReference Include="Moq" Version="4.6.36-*" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.0.3">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.0.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.0.0">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>

@@ -14,14 +14,14 @@ namespace NoteCloud.Test
     public class TestUserModule
     {
         private Mock<UnitOfWork> mockUOW;
-        private Mock<UserRepository> mockUserRepo;
+        private Mock<IUserRepository> mockUserRepo;
         private Mock<IOptions<Secrets>> mockOptions;
         private UserModule userModule;
         private Browser browser;
 
         public TestUserModule() {
             mockUOW = new Mock<UnitOfWork>();
-            mockUserRepo = new Mock<UserRepository>();
+            mockUserRepo = new Mock<IUserRepository>();
             mockOptions = new Mock<IOptions<Secrets>>();
 
             mockOptions.Setup(x => x.Value).Returns(new Secrets() { SecretKey = "Hello World" });

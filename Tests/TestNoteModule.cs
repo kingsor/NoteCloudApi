@@ -11,21 +11,19 @@ namespace NoteCloud.Test
 {
     public class TestNoteModule
     {
-        private Mock<NoteCloudContext> context;
-        private Mock<UnitOfWork> mockUOW;
-        private Mock<NoteRepository> mockNoteRepo;
-        private Mock<NoteGroupRepository> mockNoteGroupRepo;
-        private Mock<FollowerRepository> mockFollowerRepo;
+        private Mock<IUnitOfWork> mockUOW;
+        private Mock<INoteRepository> mockNoteRepo;
+        private Mock<INoteGroupRepository> mockNoteGroupRepo;
+        private Mock<IFollowerRepository> mockFollowerRepo;
         private Mock<CurrentUser> mockCurrentUser;
         private NoteModule noteModule;
         private Browser browser;
 
         public TestNoteModule() {
-            context = new Mock<NoteCloudContext>();
-            mockUOW = new Mock<UnitOfWork>(context.Object);
-            mockNoteRepo = new Mock<NoteRepository>();
-            mockNoteGroupRepo = new Mock<NoteGroupRepository>();
-            mockFollowerRepo = new Mock<FollowerRepository>();
+            mockUOW = new Mock<IUnitOfWork>();
+            mockNoteRepo = new Mock<INoteRepository>();
+            mockNoteGroupRepo = new Mock<INoteGroupRepository>();
+            mockFollowerRepo = new Mock<IFollowerRepository>();
             mockCurrentUser = new Mock<CurrentUser>();
 
             mockUOW.SetupGet(x => x.NoteRepository).Returns(mockNoteRepo.Object);

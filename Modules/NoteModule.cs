@@ -8,9 +8,9 @@ namespace NoteCloud.Modules
 {
     public class NoteModule : NancyModule
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private CurrentUser _currentUser;
-        public NoteModule(UnitOfWork unitOfWork, CurrentUser currentUser)
+        public NoteModule(IUnitOfWork unitOfWork, CurrentUser currentUser)
         {
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;

@@ -60,7 +60,7 @@ namespace NoteCloud.DataAccess
             }
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             if (!this.disposed)
             {
