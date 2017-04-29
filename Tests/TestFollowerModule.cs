@@ -47,7 +47,7 @@ namespace NoteCloud.Test
             mockCurrentUser.Setup(x => x.GetFromAuthToken(It.IsAny<IUserRepository>(), It.IsAny<string>())).Returns(currUser);
             mockFollowerRepo.Setup(x => x.Create(It.IsAny<Follower>())).Verifiable();
 
-            var result = browser.Post("/followers/" + follower.UserId, with => {
+            var result = browser.Post("/private/followers/" + follower.UserId, with => {
                 with.HttpRequest();
                 with.Header("Accept", "application/json");
                 with.Header("Content-Type", "application/json");

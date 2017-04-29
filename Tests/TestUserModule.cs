@@ -39,7 +39,7 @@ namespace NoteCloud.Test
 
             mockUserRepo.Setup(x => x.GetAllUsers()).Returns(expected);
 
-            var result = browser.Get("/users", with => {
+            var result = browser.Get("/public/users", with => {
                 with.HttpRequest();
                 with.Header("Accept", "application/json");
             });

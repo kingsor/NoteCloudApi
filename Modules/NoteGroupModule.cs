@@ -15,11 +15,11 @@ namespace NoteCloud.Modules
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;
             
-            Get("/notegroups/user/{userId}", args => {
+            Get("/public/notegroups/user/{userId}", args => {
                 return this._unitOfWork.NoteGroupRepository.GetUserNoteGroups(args.userId);
             });
 
-            Post("/notegroups", args => {
+            Post("/private/notegroups", args => {
                 NoteGroup notegroup = this.Bind<NoteGroup>();
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
 
@@ -30,7 +30,7 @@ namespace NoteCloud.Modules
                 return HttpStatusCode.OK;
             });
 
-            Put("/notegroups/{notegroupId}", args => {
+            Put("/private/notegroups/{notegroupId}", args => {
                 NoteGroup toEdit = _unitOfWork.NoteGroupRepository.GetNoteGroup(args.notegroupId);
                 NoteGroup noteGroup = this.Bind<NoteGroup>();
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
@@ -50,7 +50,7 @@ namespace NoteCloud.Modules
                 }
             });
 
-            Delete("/notegroups/{notegroupId}", args => {
+            Delete("/private/notegroups/{notegroupId}", args => {
                 NoteGroup toDelete = _unitOfWork.NoteGroupRepository.GetNoteGroup(args.notegroupId);
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
 

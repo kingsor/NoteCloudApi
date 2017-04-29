@@ -18,11 +18,7 @@ namespace NoteCloud.Middleware {
  
         public async Task Invoke(HttpContext context)
         {
-            bool isLogin = context.Request.Path.ToString().Equals("/users/login");
-            bool isLoginSlash = context.Request.Path.ToString().Equals("/users/login/");
-            bool isCreateUser = context.Request.Path.ToString().Equals("/users");
-            bool isCreateUserSlash = context.Request.Path.ToString().Equals("/users/");
-            if(!(isLogin || isLoginSlash || isCreateUser || isCreateUserSlash)) {
+            if(context.Request.Path.ToString().StartsWith("/private")) {
                 if (!context.Request.Headers.Keys.Contains("Authorize"))
                 {
                     context.Response.StatusCode = 400; //Bad Request                

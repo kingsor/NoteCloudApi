@@ -48,7 +48,7 @@ namespace NoteCloud.Test
             mockCurrentUser.Setup(x => x.GetFromAuthToken(It.IsAny<IUserRepository>(), It.IsAny<string>())).Returns(currUser);
             mockNoteGroupRepo.Setup(x => x.Create(It.IsAny<NoteGroup>())).Verifiable();
 
-            var result = browser.Post("/notegroups", with => {
+            var result = browser.Post("/private/notegroups", with => {
                 with.HttpRequest();
                 with.Header("Accept", "application/json");
                 with.Header("Content-Type", "application/json");

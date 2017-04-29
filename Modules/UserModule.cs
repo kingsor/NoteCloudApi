@@ -18,11 +18,11 @@ namespace NoteCloud.Modules
             _unitOfWork = unitOfWork;
             _secrets = secrets.Value;
             
-            Get("/users", _ => {
+            Get("/public/users", _ => {
                 return _unitOfWork.UserRepository.GetAllUsers().Select(x => new DTO.User() { Email = x.Email, UserId = x.Id });
             });
 
-            Post("/users", args => {
+            Post("/public/users", args => {
                 DTO.LoginCredentials user = this.Bind();
 
                 if(_unitOfWork.UserRepository.GetUser(user.Email) == null) {
@@ -43,7 +43,7 @@ namespace NoteCloud.Modules
                 }
             });
 
-            Post("/users/login", args => {
+            Post("/public/users/login", args => {
                 DTO.LoginCredentials user = this.Bind<DTO.LoginCredentials>();
                 
                 User fromDb = _unitOfWork.UserRepository.GetUser(user.Email);

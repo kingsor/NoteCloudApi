@@ -3,6 +3,7 @@ using NoteCloud.DataAccess;
 using Nancy.ModelBinding;
 using NoteCloud.Helpers;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace NoteCloud.Modules
 {
@@ -15,11 +16,21 @@ namespace NoteCloud.Modules
             _unitOfWork = unitOfWork;
             _currentUser = currentUser;
 
-            Get("/notes/user/{userId}", args => {
+            Get("/public/notes/user/{userId}", args => {
                 return this._unitOfWork.NoteRepository.GetUserNotes(args.userId);
             });
 
-            Post("/notes", args => {
+            Get("/private/notes/user/{userId}", args => {
+                IEnumerable<Note> notes = this._unitOfWork.NoteRepository.GetPrivateUserNotes(args.userId);
+                _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
+                if(_currentUser == args.userId) {
+                    return notes;
+                } else {
+                    return HttpStatusCode.Unauthorized;
+                }
+            });
+
+            Post("/private/notes", args => {
                 Note note = this.Bind<Note>();
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
 
@@ -35,7 +46,7 @@ namespace NoteCloud.Modules
                 }
             });
 
-            Put("/notes/{noteId}", args => {
+            Put("/private/notes/{noteId}", args => {
                 Note toEdit = this._unitOfWork.NoteRepository.GetNote(args.noteId);
                 Note note = this.Bind<Note>();
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
@@ -58,7 +69,7 @@ namespace NoteCloud.Modules
                 }
             });
 
-            Delete("/notes/{noteId}", args => {
+            Delete("/private/notes/{noteId}", args => {
                 Note toDelete = this._unitOfWork.NoteRepository.GetNote(args.noteId);
                 _currentUser = _currentUser.GetFromAuthToken(_unitOfWork.UserRepository, Request.Headers["Authorize"].FirstOrDefault());
 

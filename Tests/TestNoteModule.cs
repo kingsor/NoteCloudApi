@@ -59,7 +59,7 @@ namespace NoteCloud.Test
             mockNoteGroupRepo.Setup(x => x.GetNoteGroup(It.IsAny<int>())).Returns(group);
             mockFollowerRepo.Setup(x => x.IsFollower(It.IsAny<int>(), It.IsAny<int>())).Returns(true);
 
-            var result = browser.Post("/notes", with => {
+            var result = browser.Post("/private/notes", with => {
                 with.HttpRequest();
                 with.Header("Accept", "application/json");
                 with.Header("Content-Type", "application/json");

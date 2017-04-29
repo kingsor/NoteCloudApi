@@ -18,7 +18,13 @@ namespace NoteCloud.DataAccess
 
         public IEnumerable<Note> GetUserNotes(int userId) {
             List<NoteGroup> userNoteGroups = _dbContext.NoteGroups.Where(x => x.UserId == userId).ToList();
-            IEnumerable<Note> userNotes = _dbContext.Notes.Where(x => userNoteGroups.Any(y => y.Id == x.NoteGroupId));
+            IEnumerable<Note> userNotes = _dbContext.Notes.Where(x => userNoteGroups.Any(y => y.Id == x.NoteGroupId) && !x.IsPrivate);
+            return userNotes;
+        }
+
+        public IEnumerable<Note> GetPrivateUserNotes(int userId) {
+            List<NoteGroup> userNoteGroups = _dbContext.NoteGroups.Where(x => x.UserId == userId).ToList();
+            IEnumerable<Note> userNotes = _dbContext.Notes.Where(x => userNoteGroups.Any(y => y.Id == x.NoteGroupId) && x.IsPrivate);
             return userNotes;
         }
 
