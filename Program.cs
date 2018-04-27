@@ -1,4 +1,5 @@
 using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace NoteCloud
@@ -7,14 +8,12 @@ namespace NoteCloud
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseKestrel()
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
- 
-            host.Run();
+            BuildWebHost(args).Run();
         }
+
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+           .UseStartup<Startup>()
+           .Build();
     }
 }
